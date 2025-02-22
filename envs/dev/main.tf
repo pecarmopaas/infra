@@ -1,5 +1,5 @@
 module "rg" {
-  source          = "../../modules/resource_group"  
+  source          = "../../modules/resource_group"
   location        = var.location
   naming_location = var.naming_location
   environment     = var.environment
@@ -10,7 +10,7 @@ module "vnet" {
   location            = var.location
   naming_location     = var.naming_location
   resource_group_name = module.rg.name
-  address_space       = ["10.0.0.0/23"]
+  address_space       = var.vnet_address_space
   environment         = var.environment
 }
 
@@ -20,7 +20,7 @@ module "subnet" {
   resource_group_name     = module.rg.name
   virtual_network_name    = module.vnet.name
   environment             = var.environment
-  subnet_address_prefixes = ["10.0.0.0/24"]
+  subnet_address_prefixes = var.general_subnet_address_prefix
 }
 
 module "keyvault" {
@@ -29,7 +29,7 @@ module "keyvault" {
   environment         = var.environment
   location            = var.location
   naming_location     = var.naming_location
-  app_name            = "all"
+  app_name            = var.general_resources_app_name
 }
 
 module "aks" {
