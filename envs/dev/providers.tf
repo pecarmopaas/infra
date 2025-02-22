@@ -16,4 +16,4 @@ terraform {
     container_name       = "infracontainer"
     key                  = "dev.tfstate"
   }
-}   
+}

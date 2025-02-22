@@ -6,6 +6,6 @@ variable "naming_location" {
     type = string
 }
 
-variable "app_name" {
+variable "environment" {
     type = string
 }
