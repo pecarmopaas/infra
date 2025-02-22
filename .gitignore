@@ -1,0 +1,17 @@
+# Local .terraform directories
+**/.terraform/
+
+# .tfstate files
+*.tfstate
+
+# Plan file
+plan_file_
+
+# Lock file
+**/.terraform.*
+
+# Backup file
+*.tfstate.backup
+
+# vscode files
+.vscode/
