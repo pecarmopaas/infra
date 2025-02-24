@@ -22,3 +22,12 @@ module "subnet" {
   environment             = var.environment
   subnet_address_prefixes = var.general_subnet_address_prefix
 }
+
+module "keyvault" {
+  source              = "../../modules/keyvault"
+  resource_group_name = module.rg.name
+  environment         = var.environment
+  location            = var.location
+  naming_location     = var.naming_location
+  app_name            = var.general_resources_app_name
+}

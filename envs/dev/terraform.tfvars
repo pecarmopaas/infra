@@ -1,7 +1,6 @@
 environment                = "dev"
 location                   = "northeurope"
 naming_location            = "neu"
-general_resources_app_name = "all"
 
 vnet_address_space            = ["10.0.0.0/23"]
 general_subnet_address_prefix = ["10.0.0.0/24"]
