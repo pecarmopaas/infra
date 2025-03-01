@@ -21,3 +21,9 @@ resource "azurerm_kubernetes_cluster" "aks" {
     client_secret = var.client_secret
   }
 }
+
+resource "azurerm_role_assignment" "aks" {
+  scope                = azurerm_kubernetes_cluster.aks.id
+  role_definition_name = "Azure Kubernetes Service Cluster User Role"
+  principal_id         = var.client_id
+}

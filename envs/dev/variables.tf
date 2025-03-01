@@ -12,7 +12,7 @@ variable "naming_location" {
 }
 
 variable "general_resources_app_name" {
-  type = string
+  type    = string
   default = "all"
 }
 
