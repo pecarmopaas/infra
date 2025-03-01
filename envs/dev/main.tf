@@ -32,25 +32,25 @@ module "keyvault" {
   app_name            = var.general_resources_app_name
 }
 
-# module "acr" {
-#   source              = "../../modules/acr"
-#   resource_group_name = module.rg.name
-#   environment         = var.environment
-#   location            = var.location
-#   naming_location     = var.naming_location
-#   app_name            = var.general_resources_app_name
-# }
-#
-# module "aks" {
-#   source              = "../../modules/aks"
-#   resource_group_name = module.rg.name
-#   environment         = var.environment
-#   location            = var.location
-#   naming_location     = var.naming_location
-#   kubernetes_version  = var.kubernetes_version
-#   node_count          = var.node_count
-#   vm_size             = var.vm_size
-#   os_disk_size_gb     = var.os_disk_size_gb
-#   client_id           = var.client_id
-#   client_secret       = var.client_secret
-# }
+module "acr" {
+  source              = "../../modules/acr"
+  resource_group_name = module.rg.name
+  environment         = var.environment
+  location            = var.location
+  naming_location     = var.naming_location
+  app_name            = var.general_resources_app_name
+}
+
+module "aks" {
+  source              = "../../modules/aks"
+  resource_group_name = module.rg.name
+  environment         = var.environment
+  location            = var.location
+  naming_location     = var.naming_location
+  kubernetes_version  = var.kubernetes_version
+  node_count          = var.node_count
+  vm_size             = var.vm_size
+  os_disk_size_gb     = var.os_disk_size_gb
+  client_id           = var.client_id
+  client_secret       = var.client_secret
+}
