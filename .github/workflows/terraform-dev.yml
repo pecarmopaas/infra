@@ -23,6 +23,11 @@ jobs:
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
 
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: Initialize Terraform
         working-directory: ./envs/dev
         run: terraform init
@@ -30,6 +35,7 @@ jobs:
       - name: Validate Terraform
         working-directory: ./envs/dev
         run: terraform validate
+
       - name: Get AKS service principal Credentials
         working-directory: ./envs/dev
         run: |
