@@ -51,5 +51,5 @@ module "aks" {
   node_count          = var.node_count
   vm_size             = var.vm_size
   os_disk_size_gb     = var.os_disk_size_gb
-  sp-name             = var.aks_sp_name
+  aks_principal_id    = var.aks_principal_id
 }

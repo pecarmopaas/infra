@@ -42,6 +42,6 @@ variable "os_disk_size_gb" {
   type = number
 }
 
-variable "aks_sp_name" {
+variable "aks_principal_id" {
   type = string
 }

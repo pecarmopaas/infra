@@ -39,7 +39,7 @@ variable "os_disk_size_gb" {
   default     = 30
 }
 
-variable "sp-name" {
+variable "aks_principal_id" {
   type        = string
-  description = "Service principal name"
+  description = "Principal ID for AKS"
 }

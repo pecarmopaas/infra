@@ -25,12 +25,8 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 }
 
-data "azuread_service_principal" "aks" {
-  display_name = var.sp-name
-}
-
 resource "azurerm_role_assignment" "aks" {
   scope                = azurerm_kubernetes_cluster.aks.id
   role_definition_name = "Azure Kubernetes Service Cluster User Role"
-  principal_id         = data.azuread_service_principal.aks.object_id
+  principal_id         = var.aks_principal_id
 }
