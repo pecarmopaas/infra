@@ -23,17 +23,6 @@ jobs:
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
 
-      - name: Log in to Azure
-        uses: azure/login@v1
-        with:
-          creds: |
-            {
-              "clientId": "${{ secrets.ARM_CLIENT_ID }}",
-              "clientSecret": "${{ secrets.ARM_CLIENT_SECRET }}",
-              "subscriptionId": "${{ secrets.ARM_SUBSCRIPTION_ID }}",
-              "tenantId": "${{ secrets.ARM_TENANT_ID }}"
-            }
-
       - name: Initialize Terraform
         working-directory: ./envs/dev
         run: terraform init
@@ -42,23 +31,10 @@ jobs:
         working-directory: ./envs/dev
         run: terraform validate
 
-      - name: Get AKS service principal Credentials
-        id: get-credentials
-        working-directory: ./envs/dev
-        run: |
-          echo "::set-output name=client_id::$(az keyvault secret show --name sp-neu-dev-aks-appid --vault-name 'kv-neu-dev-all' --query value -o tsv)"
-          echo "::set-output name=client_secret::$(az keyvault secret show --name sp-neu-dev-aks-password --vault-name 'kv-neu-dev-all' --query value -o tsv)"
-
       - name: Plan Terraform
         working-directory: ./envs/dev
         run: terraform plan -out=tfplan
-        env:
-          TF_VAR_client_id: ${{ steps.get-credentials.outputs.client_id }}
-          TF_VAR_client_secret: ${{ steps.get-credentials.outputs.client_secret }}
 
       - name: Apply Terraform
         working-directory: ./envs/dev
         run: terraform apply -auto-approve tfplan
-        env:
-          TF_VAR_client_id: ${{ steps.get-credentials.outputs.client_id }}
-          TF_VAR_client_secret: ${{ steps.get-credentials.outputs.client_secret }}
