@@ -45,8 +45,8 @@ jobs:
       - name: Get AKS service principal Credentials
         working-directory: ./envs/dev
         run: |
-          export TF_VAR_appid=$(az keyvault secret show --name sp-neu-dev-aks-appid --vault-name "kv-neu-dev-all" --query value -o tsv)
-          export TF_VAR_secret=$(az keyvault secret show --name sp-neu-dev-aks-password --vault-name "kv-neu-dev-all" --query value -o tsv)
+          export TF_VAR_client_id=$(az keyvault secret show --name sp-neu-dev-aks-appid --vault-name "kv-neu-dev-all" --query value -o tsv)
+          export TF_VAR_client_secret=$(az keyvault secret show --name sp-neu-dev-aks-password --vault-name "kv-neu-dev-all" --query value -o tsv)
 
       - name: Plan Terraform
         working-directory: ./envs/dev
