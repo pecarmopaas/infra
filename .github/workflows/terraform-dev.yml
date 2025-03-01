@@ -52,12 +52,12 @@ jobs:
         working-directory: ./envs/dev
         run: terraform plan -out=tfplan
         env:
-          TF_VAR_appid: ${{ secrets.TF_VAR_appid }}
-          TF_VAR_secret: ${{ secrets.TF_VAR_secret }}
+          TF_VAR_appid: ${{ secrets.TF_VAR_client_id }}
+          TF_VAR_secret: ${{ secrets.TF_VAR_client_secret }}
 
       - name: Apply Terraform
         working-directory: ./envs/dev
         run: terraform apply -auto-approve tfplan
         env:
-          TF_VAR_appid: ${{ secrets.TF_VAR_appid }}
-          TF_VAR_secret: ${{ secrets.TF_VAR_secret }}
+          TF_VAR_appid: ${{ secrets.TF_VAR_client_id }}
+          TF_VAR_secret: ${{ secrets.TF_VAR_client_secret }}
