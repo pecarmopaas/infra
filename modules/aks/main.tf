@@ -16,14 +16,21 @@ resource "azurerm_kubernetes_cluster" "aks" {
     network_plugin = "azure"
   }
 
-  service_principal {
-    client_id     = var.client_id
-    client_secret = var.client_secret
+  identity {
+    type = "SystemAssigned"
   }
+
+  lifecycle {
+    ignore_changes = [default_node_pool[0].upgrade_settings]
+  }
+}
+
+data "azuread_service_principal" "aks" {
+  display_name = var.sp-name
 }
 
 resource "azurerm_role_assignment" "aks" {
   scope                = azurerm_kubernetes_cluster.aks.id
   role_definition_name = "Azure Kubernetes Service Cluster User Role"
-  principal_id         = var.client_id
+  principal_id         = data.azuread_service_principal.aks.object_id
 }

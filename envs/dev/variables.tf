@@ -42,10 +42,6 @@ variable "os_disk_size_gb" {
   type = number
 }
 
-variable "client_id" {
-  type = string
-}
-
-variable "client_secret" {
+variable "aks_sp_name" {
   type = string
 }

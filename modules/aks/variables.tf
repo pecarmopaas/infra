@@ -39,12 +39,7 @@ variable "os_disk_size_gb" {
   default     = 30
 }
 
-variable "client_id" {
+variable "sp-name" {
   type        = string
-  description = "Service principal client ID"
-}
-
-variable "client_secret" {
-  type        = string
-  description = "Service principal client secret"
+  description = "Service principal name"
 }

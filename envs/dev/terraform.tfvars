@@ -9,4 +9,4 @@ kubernetes_version = "1.30.0"
 node_count         = 1
 vm_size            = "Standard_D2as_v4"
 os_disk_size_gb    = 30
-
+aks_sp_name        = "sp-neu-dev-aks"
