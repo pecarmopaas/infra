@@ -25,8 +25,20 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 }
 
-resource "azurerm_role_assignment" "aks" {
+resource "azurerm_role_assignment" "aks_user" {
   scope                = azurerm_kubernetes_cluster.aks.id
   role_definition_name = "Azure Kubernetes Service Cluster User Role"
   principal_id         = var.aks_principal_id
+}
+
+resource "azurerm_role_assignment" "aks_acr_pull" {
+  scope                = var.resource_group_id
+  role_definition_name = "AcrPull"
+  principal_id         = azurerm_kubernetes_cluster.aks.kubelet_identity[0].object_id
+}
+
+resource "azurerm_role_assignment" "aks_acr_reader" {
+  scope                = var.resource_group_id
+  role_definition_name = "Reader"
+  principal_id         = azurerm_kubernetes_cluster.aks.kubelet_identity[0].object_id
 }

@@ -25,23 +25,46 @@ variable "general_subnet_address_prefix" {
   type = list(string)
 }
 
-# AKS VARIABLES
-variable "kubernetes_version" {
+variable "users_service_app_name" {
   type = string
 }
 
-variable "node_count" {
+variable "users_service_cpu" {
   type = number
 }
 
-variable "vm_size" {
+variable "users_service_memory" {
   type = string
 }
 
-variable "os_disk_size_gb" {
-  type = number
+variable "revision_mode" {
+  type = string
 }
 
 variable "aks_principal_id" {
   type = string
+}
+
+variable "allow_insecure_connections" {
+  type = bool
+}
+
+variable "external_enabled" {
+  type = bool
+}
+
+variable "transport" {
+  type = string
+}
+
+variable "latest_revision" {
+  type = bool
+}
+
+variable "percentage" {
+  type = number
+}
+
+variable "target_port" {
+  type = number
 }

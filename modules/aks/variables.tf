@@ -18,6 +18,11 @@ variable "resource_group_name" {
   description = "Resource group name"
 }
 
+variable "resource_group_id" {
+  type        = string
+  description = "Resource group ID"
+}
+
 variable "kubernetes_version" {
   type        = string
   description = "AKS version"

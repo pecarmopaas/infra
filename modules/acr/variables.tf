@@ -16,6 +16,10 @@ variable "resource_group_name" {
   type = string
 }
 
+variable "resource_group_id" {
+  type = string
+}
+
 variable "environment" {
   type = string
 }
@@ -25,5 +29,9 @@ variable "naming_location" {
 }
 
 variable "app_name" {
+  type = string
+}
+
+variable "principal_id" {
   type = string
 }

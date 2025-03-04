@@ -5,3 +5,9 @@ resource "azurerm_container_registry" "acr" {
   sku                 = var.sku
   admin_enabled       = var.admin_enabled
 }
+
+resource "azurerm_role_assignment" "acr_role_assignment" {
+  scope                = azurerm_container_registry.acr.id
+  role_definition_name = "Container Registry Contributor and Data Access Configuration Administrator"
+  principal_id         = var.principal_id
+}
