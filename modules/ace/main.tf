@@ -11,6 +11,7 @@ resource "azurerm_container_app_environment" "aca_environment" {
   location                   = var.location
   logs_destination           = "log-analytics"
   log_analytics_workspace_id = azurerm_log_analytics_workspace.law.id
+
 }
 
 resource "azurerm_user_assigned_identity" "identity" {
