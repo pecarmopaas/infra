@@ -25,46 +25,22 @@ variable "general_subnet_address_prefix" {
   type = list(string)
 }
 
-variable "users_service_app_name" {
-  type = string
-}
-
-variable "users_service_cpu" {
-  type = number
-}
-
-variable "users_service_memory" {
-  type = string
-}
-
-variable "revision_mode" {
-  type = string
-}
-
 variable "aks_principal_id" {
   type = string
 }
 
-variable "allow_insecure_connections" {
-  type = bool
+variable "node_count" {
+  type = number
 }
 
-variable "external_enabled" {
-  type = bool
-}
-
-variable "transport" {
+variable "vm_size" {
   type = string
 }
 
-variable "latest_revision" {
-  type = bool
-}
-
-variable "percentage" {
+variable "os_disk_size_gb" {
   type = number
 }
 
-variable "target_port" {
-  type = number
+variable "kubernetes_version" {
+  type = string
 }
