@@ -39,7 +39,7 @@ jobs:
         working-directory: ./envs/dev
         run: terraform apply -auto-approve tfplan
 
-    apply-deployment:
+  apply-deployment:
         needs: terraform
         name: Apply external-dns deployment
         runs-on: ubuntu-latest
