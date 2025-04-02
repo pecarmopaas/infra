@@ -35,7 +35,6 @@ module "keyvault" {
 module "acr" {
   source              = "../../modules/acr"
   resource_group_name = module.rg.name
-  resource_group_id   = module.rg.id
   environment         = var.environment
   location            = var.location
   naming_location     = var.naming_location
