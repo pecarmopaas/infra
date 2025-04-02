@@ -44,3 +44,28 @@ variable "os_disk_size_gb" {
 variable "kubernetes_version" {
   type = string
 }
+
+variable "cloudflare_zone_id" {
+  type = string
+}
+
+variable "cloudflare_api_token" {
+  type      = string
+  sensitive = true
+}
+
+variable "dns_record_name" {
+  type = string
+}
+
+variable "dns_record_proxied" {
+  type = bool
+}
+
+variable "dns_record_type" {
+  type = string
+}
+
+variable "dns_record_ttl" {
+  type = number
+}

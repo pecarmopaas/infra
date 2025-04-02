@@ -10,3 +10,8 @@ node_count         = 1
 vm_size            = "Standard_D2as_v4"
 os_disk_size_gb    = 30
 kubernetes_version = "1.31.3"
+
+dns_record_name    = "*.paas.pecarmo.pt"
+dns_record_proxied = false
+dns_record_type    = "A"
+dns_record_ttl     = 300
