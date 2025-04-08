@@ -52,8 +52,19 @@ resource "azurerm_role_assignment" "aks_acr_reader" {
   principal_id         = azurerm_kubernetes_cluster.aks.kubelet_identity[0].object_id
 }
 
+data "azurerm_client_config" "current" {}
+
+resource "azurerm_key_vault_access_policy" "aks_secrets_get" {
+  key_vault_id = var.keyvault_id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
+  object_id    = azurerm_kubernetes_cluster.aks.kubelet_identity[0].object_id
+
+  secret_permissions = ["Get"]
+}
+
 data "azurerm_public_ip" "appgw_ip" {
   name                = "appgw-aks-${var.naming_location}-${var.environment}-appgwpip"
   resource_group_name = "MC_rg-neu-dev_aks-neu-dev_northeurope"
   depends_on          = [azurerm_kubernetes_cluster.aks]
 }
+

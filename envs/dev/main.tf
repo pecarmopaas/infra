@@ -54,8 +54,9 @@ module "acr" {
 #   os_disk_size_gb     = var.os_disk_size_gb
 #   kubernetes_version  = var.kubernetes_version
 #   aks_principal_id    = var.aks_principal_id
+#   keyvault_id         = module.keyvault.id
 # }
-
+#
 # module "aks_appgwy_dns_record" {
 #   source             = "../../modules/dns_record"
 #   cloudflare_zone_id = var.cloudflare_zone_id

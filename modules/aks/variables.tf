@@ -48,3 +48,8 @@ variable "aks_principal_id" {
   type        = string
   description = "Principal ID for AKS"
 }
+
+variable "keyvault_id" {
+  type        = string
+  description = "Key Vault ID"
+}
