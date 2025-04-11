@@ -68,3 +68,8 @@ data "azurerm_public_ip" "appgw_ip" {
   depends_on          = [azurerm_kubernetes_cluster.aks]
 }
 
+resource "azurerm_key_vault_secret" "aks_identity_id" {
+  name         = "aks-identity-id"
+  value        = azurerm_kubernetes_cluster.aks.kubelet_identity[0].client_id
+  key_vault_id = var.keyvault_id
+}
