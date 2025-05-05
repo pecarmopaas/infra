@@ -11,7 +11,7 @@ vm_size            = "Standard_D2as_v4"
 os_disk_size_gb    = 30
 kubernetes_version = "1.31.3"
 
-dns_record_name    = "*.pecarmo.pt"
+dns_record_name    = "*.pecarmopaas.pt"
 dns_record_proxied = true
 dns_record_type    = "A"
 dns_record_ttl     = 1

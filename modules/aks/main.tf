@@ -34,6 +34,12 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 }
 
+data "azurerm_public_ip" "appgw_ip" {
+  name                = "appgw-aks-${var.naming_location}-${var.environment}-appgwpip"
+  resource_group_name = "MC_rg-neu-dev_aks-neu-dev_northeurope"
+  depends_on          = [azurerm_kubernetes_cluster.aks]
+}
+
 resource "azurerm_role_assignment" "aks_user" {
   scope                = azurerm_kubernetes_cluster.aks.id
   role_definition_name = "Azure Kubernetes Service Cluster User Role"
@@ -60,12 +66,6 @@ resource "azurerm_key_vault_access_policy" "aks_secrets_get" {
   object_id    = azurerm_kubernetes_cluster.aks.kubelet_identity[0].object_id
 
   secret_permissions = ["Get"]
-}
-
-data "azurerm_public_ip" "appgw_ip" {
-  name                = "appgw-aks-${var.naming_location}-${var.environment}-appgwpip"
-  resource_group_name = "MC_rg-neu-dev_aks-neu-dev_northeurope"
-  depends_on          = [azurerm_kubernetes_cluster.aks]
 }
 
 resource "azurerm_key_vault_secret" "aks_identity_id" {
