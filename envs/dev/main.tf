@@ -57,12 +57,12 @@ module "aks" {
   keyvault_id         = module.keyvault.id
 }
 
-module "aks_appgwy_dns_record" {
-  source             = "../../modules/dns_record"
-  cloudflare_zone_id = var.cloudflare_zone_id
-  dns_record_name    = var.dns_record_name
-  dns_record_content = module.aks.appgw_ip
-  dns_record_proxied = var.dns_record_proxied
-  dns_record_type    = var.dns_record_type
-  dns_record_ttl     = var.dns_record_ttl
-}
+# module "aks_appgwy_dns_record" {
+#   source             = "../../modules/dns_record"
+#   cloudflare_zone_id = var.cloudflare_zone_id
+#   dns_record_name    = var.dns_record_name
+#   dns_record_content = module.aks.appgw_ip
+#   dns_record_proxied = var.dns_record_proxied
+#   dns_record_type    = var.dns_record_type
+#   dns_record_ttl     = var.dns_record_ttl
+# }
