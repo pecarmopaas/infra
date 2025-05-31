@@ -14,7 +14,7 @@ env:
 jobs:
     terraform-plan:
         runs-on: ubuntu-latest
-
+        environment: uat
         steps:
             - name: Checkout code
               uses: actions/checkout@v3
@@ -34,10 +34,10 @@ jobs:
               working-directory: ./envs/uat
               run: terraform plan -out=tfplan
 
-    approval-gate-application:
+    approval-gate:
       name: "Approval Gate App"
       runs-on: ubuntu-20.04
-      environment: uat
+      environment: uat-approvers
       needs: [terraform-plan]
       if: ${{ always() && (needs.terraform-plan.outputs.planExitcode == 2) }}
       steps:
@@ -46,6 +46,8 @@ jobs:
     terraform-apply:
         runs-on: ubuntu-latest
         environment: uat
+        needs: [terraform-plan, approval-gate]
+        if: ${{ always() && (needs.approval-gate.result == 'Success') }}
 
         steps:
             - name: Checkout code
