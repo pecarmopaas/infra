@@ -33,8 +33,12 @@ jobs:
               run: terraform validate
 
             - name: Plan Terraform
+              id: plan-resources
               working-directory: ./envs/uat
               run: terraform plan -out=tfplan
+
+        outputs:
+          planExitcode: ${{ steps.plan-resources.outputs.exitcode }}
 
     approval-gate:
       name: "Approval Gate App"
