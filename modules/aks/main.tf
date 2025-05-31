@@ -28,18 +28,18 @@ resource "azurerm_kubernetes_cluster" "aks" {
     ignore_changes = [default_node_pool[0].upgrade_settings]
   }
 
-  # ingress_application_gateway {
-  #   subnet_cidr  = "10.225.0.0/24"
-  #   gateway_name = "appgw-aks-${var.naming_location}-${var.environment}"
-  # }
+  ingress_application_gateway {
+    subnet_cidr  = "10.225.0.0/24"
+    gateway_name = "appgw-aks-${var.naming_location}-${var.environment}"
+  }
 }
 
-# data "azurerm_public_ip" "appgw_ip" {
-#   name                = "appgw-aks-${var.naming_location}-${var.environment}-appgwpip"
-#   resource_group_name = "MC_rg-neu-dev_aks-neu-dev_northeurope"
-#   depends_on          = [azurerm_kubernetes_cluster.aks]
-# }
-#
+data "azurerm_public_ip" "appgw_ip" {
+  name                = "appgw-aks-${var.naming_location}-${var.environment}-appgwpip"
+  resource_group_name = "MC_rg-neu-dev_aks-neu-dev_northeurope"
+  depends_on          = [azurerm_kubernetes_cluster.aks]
+}
+
 resource "azurerm_role_assignment" "aks_user" {
   scope                = azurerm_kubernetes_cluster.aks.id
   role_definition_name = "Azure Kubernetes Service Cluster User Role"
