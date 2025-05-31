@@ -1,5 +1,6 @@
 provider "azurerm" {
   features {}
+  subscription_id = "ed8f3942-5871-47a3-b546-c5fa758b2abb"
 }
 
 terraform {
@@ -16,4 +17,4 @@ terraform {
     container_name       = "infracontainer"
     key                  = "prd.tfstate"
   }
-}   
+}

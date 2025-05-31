@@ -18,6 +18,11 @@ variable "resource_group_name" {
   description = "Resource group name"
 }
 
+variable "resource_group_id" {
+  type        = string
+  description = "Resource group ID"
+}
+
 variable "kubernetes_version" {
   type        = string
   description = "AKS version"
@@ -39,12 +44,12 @@ variable "os_disk_size_gb" {
   default     = 30
 }
 
-variable "client_id" {
+variable "aks_principal_id" {
   type        = string
-  description = "Service principal client ID"
+  description = "Principal ID for AKS"
 }
 
-variable "client_secret" {
+variable "keyvault_id" {
   type        = string
-  description = "Service principal client secret"
+  description = "Key Vault ID"
 }
