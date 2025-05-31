@@ -32,27 +32,27 @@ module "keyvault" {
   app_name            = var.general_resources_app_name
 }
 
-module "acr" {
-  source              = "../../modules/acr"
-  resource_group_name = module.rg.name
-  environment         = var.environment
-  location            = var.location
-  naming_location     = var.naming_location
-  app_name            = var.general_resources_app_name
-  principal_id        = var.aks_principal_id
-}
-
-module "aks" {
-  source              = "../../modules/aks"
-  resource_group_name = module.rg.name
-  resource_group_id   = module.rg.id
-  location            = var.location
-  naming_location     = var.naming_location
-  environment         = var.environment
-  node_count          = var.node_count
-  vm_size             = var.vm_size
-  os_disk_size_gb     = var.os_disk_size_gb
-  kubernetes_version  = var.kubernetes_version
-  aks_principal_id    = var.aks_principal_id
-  keyvault_id         = module.keyvault.id
-}
+# module "acr" {
+#   source              = "../../modules/acr"
+#   resource_group_name = module.rg.name
+#   environment         = var.environment
+#   location            = var.location
+#   naming_location     = var.naming_location
+#   app_name            = var.general_resources_app_name
+#   principal_id        = var.aks_principal_id
+# }
+#
+# module "aks" {
+#   source              = "../../modules/aks"
+#   resource_group_name = module.rg.name
+#   resource_group_id   = module.rg.id
+#   location            = var.location
+#   naming_location     = var.naming_location
+#   environment         = var.environment
+#   node_count          = var.node_count
+#   vm_size             = var.vm_size
+#   os_disk_size_gb     = var.os_disk_size_gb
+#   kubernetes_version  = var.kubernetes_version
+#   aks_principal_id    = var.aks_principal_id
+#   keyvault_id         = module.keyvault.id
+# }

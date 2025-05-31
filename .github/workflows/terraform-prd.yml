@@ -34,6 +34,15 @@ jobs:
               working-directory: ./envs/prd
               run: terraform plan -out=tfplan
 
+    approval-gate-application:
+      name: "Approval Gate App"
+      runs-on: ubuntu-20.04
+      environment: prd
+      needs: [terraform-plan]
+      if: ${{ always() && (needs.terraform-plan.outputs.planExitcode == 2) }}
+      steps:
+        - run: echo "Approval required to proceed with the deployment."
+
     terraform-apply:
         runs-on: ubuntu-latest
         environment: prd
@@ -52,10 +61,6 @@ jobs:
             - name: Validate Terraform
               working-directory: ./envs/prd
               run: terraform validate
-
-            - name: Plan Terraform
-              working-directory: ./envs/prd
-              run: terraform plan -out=tfplan
 
             - name: Apply Terraform
               working-directory: ./envs/prd
