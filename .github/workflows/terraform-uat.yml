@@ -15,6 +15,7 @@ env:
 
 jobs:
     terraform-plan:
+        name: "Terraform Plan UAT"
         runs-on: ubuntu-latest
         environment: uat
         steps:
@@ -35,13 +36,13 @@ jobs:
             - name: Plan Terraform
               id: plan-resources
               working-directory: ./envs/uat
-              run: terraform plan -out=tfplan
+              run: terraform plan -out=tfplan -detailed-exitcode
 
         outputs:
           planExitcode: ${{ steps.plan-resources.outputs.exitcode }}
 
     approval-gate:
-      name: "Approval Gate App"
+      name: "Approval Gate"
       runs-on: ubuntu-20.04
       environment: uat-approvers
       needs: [terraform-plan]
@@ -50,6 +51,7 @@ jobs:
         - run: echo "Approval required to proceed with the deployment."
 
     terraform-apply:
+        name: "Terraform Apply UAT"
         runs-on: ubuntu-latest
         environment: uat
         needs: [terraform-plan, approval-gate]
