@@ -43,7 +43,7 @@ jobs:
 
     approval-gate:
       name: "Approval Gate"
-      runs-on: ubuntu-20.04
+      runs-on: ubuntu-latest
       environment: uat-approvers
       needs: [terraform-plan]
       if: ${{ always() && (needs.terraform-plan.outputs.planExitcode == 2) }}
