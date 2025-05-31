@@ -1,0 +1,40 @@
+name: Terraform Validate
+
+on:
+    pull_request:
+        branches:
+            - develop
+            - release/*
+            - main
+        paths:
+            - "dev/terraform/**"
+            - "uat/terraform/**"
+            - "prd/terraform/**"
+
+jobs:
+    validate:
+        runs-on: ubuntu-latest
+        environment: dev
+        steps:
+            - uses: actions/checkout@v3
+            - name: Setup Terraform
+              uses: hashicorp/setup-terraform@v3
+
+            - name: Terraform Init, Fmt and Validate (Dev)
+              working-directory: ./envs/dev
+              run: |
+                  terraform init
+                  terraform fmt -check
+                  terraform validate
+            - name: Terraform Init, Fmt and Validate (UAT)
+              working-directory: ./envs/uat
+              run: |
+                  terraform init
+                  terraform fmt -check
+                  terraform validate
+            - name: Terraform Init, Fmt and Validate (PRD)
+              working-directory: ./envs/prd
+              run: |
+                  terraform init
+                  terraform fmt -check
+                  terraform validate

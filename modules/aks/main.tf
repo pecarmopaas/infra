@@ -16,8 +16,60 @@ resource "azurerm_kubernetes_cluster" "aks" {
     network_plugin = "azure"
   }
 
-  service_principal {
-    client_id     = var.client_id
-    client_secret = var.client_secret
+  identity {
+    type = "SystemAssigned"
   }
+
+  key_vault_secrets_provider {
+    secret_rotation_enabled = true
+  }
+
+  lifecycle {
+    ignore_changes = [default_node_pool[0].upgrade_settings]
+  }
+
+  # ingress_application_gateway {
+  #   subnet_cidr  = "10.225.0.0/24"
+  #   gateway_name = "appgw-aks-${var.naming_location}-${var.environment}"
+  # }
+}
+
+# data "azurerm_public_ip" "appgw_ip" {
+#   name                = "appgw-aks-${var.naming_location}-${var.environment}-appgwpip"
+#   resource_group_name = "MC_rg-neu-dev_aks-neu-dev_northeurope"
+#   depends_on          = [azurerm_kubernetes_cluster.aks]
+# }
+#
+resource "azurerm_role_assignment" "aks_user" {
+  scope                = azurerm_kubernetes_cluster.aks.id
+  role_definition_name = "Azure Kubernetes Service Cluster User Role"
+  principal_id         = var.aks_principal_id
+}
+
+resource "azurerm_role_assignment" "aks_acr_pull" {
+  scope                = var.resource_group_id
+  role_definition_name = "AcrPull"
+  principal_id         = azurerm_kubernetes_cluster.aks.kubelet_identity[0].object_id
+}
+
+resource "azurerm_role_assignment" "aks_acr_reader" {
+  scope                = var.resource_group_id
+  role_definition_name = "Reader"
+  principal_id         = azurerm_kubernetes_cluster.aks.kubelet_identity[0].object_id
+}
+
+data "azurerm_client_config" "current" {}
+
+resource "azurerm_key_vault_access_policy" "aks_secrets_get" {
+  key_vault_id = var.keyvault_id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
+  object_id    = azurerm_kubernetes_cluster.aks.kubelet_identity[0].object_id
+
+  secret_permissions = ["Get"]
+}
+
+resource "azurerm_key_vault_secret" "aks_identity_id" {
+  name         = "aks-identity-id"
+  value        = azurerm_kubernetes_cluster.aks.kubelet_identity[0].client_id
+  key_vault_id = var.keyvault_id
 }
